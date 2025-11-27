@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { Calendar as CalendarIcon, FileText, LayoutDashboard, Settings } from 'lucide-react';
+import { Calendar as CalendarIcon, FileText, LayoutDashboard, Settings as SettingsIcon } from 'lucide-react';
 import { ViewState } from './types';
 import Calendar from './components/Calendar';
 import DayView from './components/DayView';
 import SummaryGenerator from './components/SummaryGenerator';
+import Settings from './components/Settings';
 
 const App: React.FC = () => {
   const [currentView, setCurrentView] = useState<ViewState>(ViewState.DASHBOARD);
@@ -51,6 +52,9 @@ const App: React.FC = () => {
 
       case ViewState.SUMMARY:
         return <SummaryGenerator onBack={() => setCurrentView(ViewState.DASHBOARD)} />;
+      
+      case ViewState.SETTINGS:
+        return <Settings onBack={() => setCurrentView(ViewState.DASHBOARD)} />;
 
       default:
         return <div>Not found</div>;
@@ -86,6 +90,14 @@ const App: React.FC = () => {
         >
           <FileText className="w-6 h-6" />
           <span className="text-[10px] font-medium">Report</span>
+        </button>
+
+        <button
+          onClick={() => setCurrentView(ViewState.SETTINGS)}
+          className={`flex flex-col items-center justify-center gap-1 p-2 rounded-lg transition-colors ${currentView === ViewState.SETTINGS ? 'text-blue-600 bg-blue-50' : 'text-slate-500 hover:text-slate-900'}`}
+        >
+          <SettingsIcon className="w-6 h-6" />
+          <span className="text-[10px] font-medium">Settings</span>
         </button>
       </nav>
 
